@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import type { TodoItem } from "@/types";
+import Modal from "./Modal";
+import { ContainedButtonStyles } from "@/ui-styles/button-styles";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Checkbox from "@mui/material/Checkbox";
@@ -8,7 +10,6 @@ import Container from "@mui/material/Container";
 import IconButton from "@mui/material/IconButton";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { ContainedButtonStyles } from "@/ui-styles/button-styles";
 
 interface TodoItemProps {
   id: number;
@@ -23,11 +24,13 @@ interface TodoListProps {
   listIsEmpty: boolean;
 }
 
+function handleAddItem() {}
+
 function TodoItem({ id, name, description, completed, reveal }: TodoItemProps) {
   let [completedState, setCompletedState] = useState(completed);
 
   return reveal ? (
-    <Box component="li">
+    <Box component="li" sx={{ display: "inline" }}>
       <Checkbox
         checked={completedState}
         title={
@@ -57,18 +60,44 @@ function TodoItem({ id, name, description, completed, reveal }: TodoItemProps) {
 }
 
 export default function TodoList({ data, listIsEmpty }: TodoListProps) {
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  const handleOpenModal = () => {
+    setModalIsOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalIsOpen(false);
+  };
+
   return listIsEmpty ? (
     <Box>
       <Typography>Your todo list is empty :)</Typography>
-      <Button variant="contained" sx={ContainedButtonStyles}>
+      <br />
+      <Button
+        onClick={handleOpenModal}
+        variant="contained"
+        sx={ContainedButtonStyles}
+      >
         Add your first item
       </Button>
+      <Modal
+        action="Add"
+        data={data}
+        open={modalIsOpen}
+        onClose={handleCloseModal}
+      />
     </Box>
   ) : (
     <Container>
-      <Button variant="contained" sx={ContainedButtonStyles}>
+      <Button
+        onClick={handleOpenModal}
+        variant="contained"
+        sx={ContainedButtonStyles}
+      >
         Add item
       </Button>
+      <br />
       <Box component="ul">
         {(data as TodoItem[]).map(({ id, name, description, completed }) => (
           <TodoItem
@@ -81,6 +110,12 @@ export default function TodoList({ data, listIsEmpty }: TodoListProps) {
           />
         ))}
       </Box>
+      <Modal
+        action="Add"
+        data={data}
+        open={modalIsOpen}
+        onClose={handleCloseModal}
+      />
     </Container>
   );
 }
