@@ -1,17 +1,22 @@
 package main
 
 import (
-	"log"
-
 	"github.com/gofiber/fiber/v2"
+	"github.com/gooddavvy/Postop-TodoList/backend/handlers"
+	"github.com/gooddavvy/Postop-TodoList/backend/utils"
 )
 
 func main() {
-	app := fiber.New()
+	app := utils.App
 
-	app.Get("/", func(c *fiber.Ctx) error {
-		return c.SendString("Hello, World!")
+	app.Get("/api/*", func(c *fiber.Ctx) error {
+		apiParam := c.Params("*")
+		if apiParam == "allTodos" {
+			return handlers.AllTodosHandler(c)
+		}
+
+		return c.SendString("E404 Not Found: API parameter not found")
 	})
 
-	log.Fatal(app.Listen(":"))
+	utils.StartServer()
 }

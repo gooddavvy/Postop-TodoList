@@ -91,6 +91,15 @@ func UseGetTestTodos(filename string) []models.TodoItem {
 	return data
 }
 
+func GetTodos(filename string) ([]models.TodoItem, error) {
+	_, data, err := ReadFile(filename)
+	err = HandleError(err) // HandleError will check if the error is nil by itself, no need to add it to the if statement
+	if err != nil {
+		return nil, err
+	}
+	return data, nil
+}
+
 // Main todo-logic functions
 
 func EditTodo(todos []models.TodoItem, x int, newTodo models.TodoItem) ([]models.TodoItem, error) {

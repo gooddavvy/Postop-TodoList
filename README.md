@@ -28,3 +28,4 @@ If you have issues with setting up your backend, and you are using VS Code, I th
 Remember, this challenge will not pay you money or reward you anything except for congratulations. It is only necessary to challenge yourself.
 
 Once you've finished, lmk in the issues.
+Need anything? Lmk in the issues.
