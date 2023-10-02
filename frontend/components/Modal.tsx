@@ -78,7 +78,7 @@ const AddComponent = ({ open, onClose, data }: ModalProps) => {
             setDescription("");
             onClose();
           }}
-          color="secondary"
+          color="primary"
         >
           Close
         </Button>

@@ -17,6 +17,7 @@ If you want to take it, please feel free to do so. Here are its requirements:
 
 - TypeScript, Next.js
 - Tailwind.css / styled-components (both are optional)
+- Material UI (I recommend this one, but it is also optional)
 
 Do not create your own CSS or SCSS files. Logic matters.
 Make sure you have the `backend` and `frontend` folders in the same repository.
